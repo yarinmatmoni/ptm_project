@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="15.0.1" class="java.beans.XMLDecoder">
+ <object class="model.xmlObject" id="xmlObject0">
+  <void property="map">
+   <void method="put">
+    <string>throttle</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>electric-pump</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>airspeed-kt</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>throttle1</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>electric-pump2</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>engine-pump2</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>gps_indicated-vertical-speed</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>attitude-indicator_indicated-pitch-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>encoder_indicated-altitude-ft</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>gps_indicated-ground-speed-kt</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>vertical-speed-fps</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>flaps</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>heading-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>rngine-pump2</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>elevator</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>longitude-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>altimeter_indicated-altitude-ft</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>encoder_pressure-alt-ft</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>rudder</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>latitude-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>indicated-heading-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>aileron</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>roll-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>speedbrake</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>external-power</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>slats</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>airspeed-indicator_indicated-speed-kt</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>gps_indicated-altitude-ft</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>vertical-speed-indicator_indicated-speed-fpm</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>pitch-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>side-slip-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>altimeter_pressure-alt-ft</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>engine_rpm</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>glideslope</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>magnetic-compass_indicated-heading-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>altitude-ft</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>attitude-indicator_indicated-roll-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>slip-skid-ball_indicated-slip-skid</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>APU-generator</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>attitude-indicator_internal-roll-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>turn-indicator_indicated-turn-rate</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>attitude-indicator_internal-pitch-deg</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>-1.0</float>
+     </void>
+     <void method="add">
+      <float>1.0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>port</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>5400</float>
+     </void>
+     <void method="add">
+      <float>0</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>ip</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>127.0</float>
+     </void>
+     <void method="add">
+      <float>0.1</float>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>speed</string>
+    <object class="java.util.ArrayList">
+     <void method="add">
+      <float>100</float>
+     </void>
+     <void method="add">
+      <float>0</float>
+     </void>
+    </object>
+   </void>
+  </void>
+ </object>
+</java>

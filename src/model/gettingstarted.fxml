@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="337.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="173.0" layoutY="27.0" prefHeight="31.0" prefWidth="211.0" text="Let's Get Started!">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="32.0" layoutY="65.0" prefHeight="264.0" prefWidth="525.0" text="Hello!&#10;&#10;This is a short guide that explains how to run the software.&#10;&#10;The first step you need to do is to upload your learn file - so that the software&#10;will get all the information in order to find anomalies.&#10;&#10;The second step is to upload the detect file.&#10;Then, all the anomalies will be counted.&#10;&#10;After that, tou need to choode algorithm - you can choose it in the buttom that is in the&#10;bottom, or on top in the menu.&#10; &#10;To start the flight, press the e button play.&#10;Then you can select the time using the slider, or one of the suggested buttons.&#10;&#10;" />
+   </children>
+</AnchorPane>

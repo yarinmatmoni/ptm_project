@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import view.joystick.Joystick?>
+<?import view.flight_player.FlightPlayer?>
+<?import view.control_panel.ControlPanel?>
+<?import view.graphs.Graphs?>
+<?import view.mymenubar.MyMenuBar?>
+<?import view.list.List?>
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="view.MainController" prefHeight="400.0" prefWidth="600.0">
+<!--    <top>-->
+        <MyMenuBar fx:id="mymenubar" maxWidth="1000" />
+        <List fx:id="list" layoutX="0" layoutY="60"/>
+        <FlightPlayer fx:id="flightplayer" layoutX="0" layoutY="470"/>
+        <Joystick fx:id="joystick" layoutX="700" layoutY="70"/>
+        <ControlPanel fx:id="controlpanel" layoutX="710" layoutY="300"/>
+        <Graphs fx:id="graphs" layoutX="200" layoutY="70"/>
+
+
+<!--    </top>-->
+<!--    <left>-->
+<!--        <List fx:id="list" layoutX="500"/>-->
+<!--    </left>-->
+<!--    <bottom>-->
+<!--        <Pane prefHeight="87.0" prefWidth="500.0" >-->
+<!--            <children>-->
+<!--                <FlightPlayer fx:id="flightplayer" layoutX="0" layoutY="-15" />-->
+<!--            </children>-->
+<!--        </Pane>-->
+<!--    </bottom>-->
+<!--    <right>-->
+<!--        <Pane prefHeight="421.0" prefWidth="209.0" >-->
+<!--            <children>-->
+<!--                <SplitPane dividerPositions="0.5" layoutX="-1.0" layoutY="35.0" orientation="VERTICAL" prefHeight="394.0" prefWidth="205.0">-->
+<!--                    <items>-->
+<!--                        <Joystick fx:id="joystick"/>-->
+<!--                        <ControlPanel fx:id="controlpanel"/>-->
+<!--                    </items>-->
+<!--                </SplitPane>-->
+<!--            </children>-->
+<!--        </Pane>-->
+<!--    </right>-->
+<!--    <center>-->
+<!--        <Graphs fx:id="graphs" layoutX="0" layoutY="60"/>-->
+<!--    </center>-->
+</AnchorPane>

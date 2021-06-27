@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+
+<AnchorPane fx:id="Joystick" prefHeight="225.0" prefWidth="243.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.joystick.JoystickController">
+
+    <children>
+        <Canvas fx:id="canvasjoy" height="151.0" layoutX="57.0" layoutY="6.0" width="150.0" />
+        <Slider fx:id="throttle" blockIncrement="0.1" layoutX="9.0" layoutY="4.0" majorTickUnit="0.1" max="1.0" min="-1.0" orientation="VERTICAL" prefHeight="159.0" prefWidth="32.0" showTickLabels="true" />
+        <Slider fx:id="rudder" blockIncrement="0.1" layoutX="25.0" layoutY="161.0" majorTickUnit="0.1" max="1.0" min="-1.0" prefHeight="33.0" prefWidth="212.0" showTickLabels="true" />
+      <Separator layoutX="7.0" layoutY="212.0" prefHeight="2.0" prefWidth="223.0" />
+      <Separator layoutX="-5.0" layoutY="-10.0" prefHeight="3.0" prefWidth="247.0" />
+      <Circle fx:id="bordercircle" fill="#f9fcff" layoutX="134.0" layoutY="79.0" radius="75.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fx:id="circle" centerX="0" centerY="0" fill="#aad0f4" layoutX="133.0" layoutY="82.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+    </children>
+
+</AnchorPane>

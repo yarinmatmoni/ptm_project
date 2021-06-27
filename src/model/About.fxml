@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="451.0" prefWidth="418.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="152.0" layoutY="14.0" prefHeight="46.0" prefWidth="151.0" text="About" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="25.0" layoutY="60.0" prefHeight="253.0" prefWidth="364.0" text="Hello!&#10;&#10;We are four computer science students and were asked&#10;to prepare software for detecting flight anomalies.&#10;&#10;Hence, we have worked to design and program the&#10;software so that it will be as user-friendly and pleasant as&#10;possible.&#10;&#10;We hope you enjoy using the software.&#10;&#10;We would like to know of any suggestions for improvement&#10;if you have in order to get better.&#10;you can write it to the Email below:&#10;abcde@gmail.com &#10;or in the text field below.&#10;&#10;&#10;&#10;" />
+      <TextArea layoutX="23.0" layoutY="354.0" prefHeight="83.0" prefWidth="364.0" />
+      <Label layoutX="27.0" layoutY="329.0" prefHeight="17.0" prefWidth="358.0" text="If you have suggestions for improvement, write them down here" />
+   </children>
+</AnchorPane>
