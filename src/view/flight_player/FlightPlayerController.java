@@ -31,8 +31,6 @@ public class FlightPlayerController {
     public FlightPlayerController(){
 
         timeSlider = new Slider();
-//        timeSlider.setMin(0);
-//        timeSlider.setMax(2175);
     }
 
     public void play(){

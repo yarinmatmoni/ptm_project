@@ -6,7 +6,16 @@ import java.net.Socket;
 public class Simulator implements Runnable {
 
     File file;
+    String ip;
+    int port;
+    long speed;
 
+    public Simulator(File file, String ip, int port, long speed){
+        this.file = file;
+        this.ip = ip;
+        this.port = port;
+        this.speed = speed;
+    }
     public void setFile(File f){
         this.file = f;
     }
@@ -26,7 +35,7 @@ public class Simulator implements Runnable {
             while((line=in.readLine())!=null){
                 out.println(line);
                 out.flush();
-                Thread.sleep(100);
+                Thread.sleep(speed);
             }
             out.close();
             in.close();

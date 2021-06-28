@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class ZScore implements TimeSeriesAnomalyDetector {
 
 	public ArrayList<Float> zmap = new ArrayList<>();
+	public HashMap<String, ArrayList<Float>> zmap1 = new HashMap<String, ArrayList<Float>>();
 	HashMap<String, Float> ZScoreMap;// save the name of the feature and the "tx".
 	List<AnomalyReport> AnomalyList; // save the anomalies
 
@@ -129,6 +130,7 @@ public class ZScore implements TimeSeriesAnomalyDetector {
 
 		for(int i=0; i<data.getsizefFeatures(); i++) {
 
+			ArrayList<Float> arr = new ArrayList<Float>();
 			String feature = data.getFeatures().get(i);
 			float[] featurevalue = SimpleAnomalyDetector.convertToFloat(data.getHashMap().get(feature));
 			for(int j=1; j<data.getsizeArrayList(); j++) { // j = time-step
@@ -136,11 +138,13 @@ public class ZScore implements TimeSeriesAnomalyDetector {
 				float[] partofarray = makePartOfArray(featurevalue, j);
 				float zs = CountZS(partofarray, featurevalue);
 				zmap.add(zs);
+				arr.add(zs);
 				if(zs > ZScoreMap.get(feature)) {
 					AnomalyReport ar = new AnomalyReport(feature, j);
 					AnomalyList.add(ar);
 				}
 			}
+			zmap1.put(feature, arr);
 		}
 
 		return AnomalyList;

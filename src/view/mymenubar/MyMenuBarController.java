@@ -6,7 +6,7 @@ import javafx.scene.control.MenuItem;
 public class MyMenuBarController {
 
     public Runnable onSimple, onZScore, onHybrid, onOpenXML;
-    public Runnable ongettingStarted, onCheck, onAbout;
+    public Runnable ongettingStarted, onCheck, onAbout, onstartLr, onstartDc;
 
 
     public MyMenuBarController(){
@@ -52,6 +52,16 @@ public class MyMenuBarController {
     public void checkUpdates(){
         if(onCheck != null){
             onCheck.run();
+        }
+    }
+    public void startLr(){
+        if (onstartLr != null ){
+            onstartLr.run();
+        }
+    }
+    public void startDc(){
+        if (onstartDc != null){
+            onstartDc.run();
         }
     }
 

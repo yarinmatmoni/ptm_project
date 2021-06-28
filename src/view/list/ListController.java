@@ -37,11 +37,10 @@ public class ListController {
 
         if(listview != null) {
             String title = listview.getSelectionModel().getSelectedItem();
-            System.out.println(title);
             TheTitle = title;
         }
         else{
-            System.out.println("please enter CSV of learning first");
+            //System.out.println("please enter CSV of learning first");
         }
     }
 

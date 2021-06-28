@@ -490,7 +490,7 @@
     <string>speed</string>
     <object class="java.util.ArrayList">
      <void method="add">
-      <float>100</float>
+      <float>200</float>
      </void>
      <void method="add">
       <float>0</float>

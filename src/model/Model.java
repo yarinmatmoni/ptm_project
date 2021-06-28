@@ -11,11 +11,10 @@ import java.io.IOException;
 import java.util.*;
 
 import javafx.stage.Stage;
-import view.windowsdialog.dialog;
 
 public class Model extends Observable{
 
-    File fileLearn, fileDetect, file, detectFile;
+    File file, detectFile;
     public Timer timer = null;
     public IntegerProperty timeStep;
     public TimeSeries TSlearn, TSdetect;
@@ -27,42 +26,32 @@ public class Model extends Observable{
     public HybridAlgorithm hybrid;
 
     public List<String> featuresName;
-
     public HashMap<String, ArrayList<Float>> properties;
 
-    public Float port;
+    public int port;
     public String ip;
     public long speed;
 
-
-    boolean flag = false;
-
+    Thread t;
+    Simulator simulator;
 
 
     public void setProperties() {
 
         xmlObject xob = new xmlObject();
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> Snames = new ArrayList<String>();
         String path = "settings.xml";
 
         properties = createXML.getPropertiesHashMap(path);
 
-        port = properties.get("port").get(0);
-        ip = properties.get("ip").get(0).toString() + properties.get("ip").get(1).toString();
+        port =Math.round(properties.get("port").get(0));
+        ip = properties.get("ip").get(0).toString() +"."+ properties.get("ip").get(1).toString();
         float spe = properties.get("speed").get(0);
         this.speed = (long) spe;
 
         properties.remove("port", properties.get("port"));
         properties.remove(("ip"), properties.get("ip"));
         properties.remove(("speed"), properties.get("speed"));
-
-        for(String i: properties.keySet()){
-            System.out.println(i);
-        }
-//        ArrayList<String> name = createXML.namesArray(path);
-//        for(int i=0; i<name.size(); i++){
-//            System.out.println(name.get(i));
-//        }
 
     }
 
@@ -72,8 +61,7 @@ public class Model extends Observable{
         ArrayList<String> names = new ArrayList<String>();
 
         properties = createXML.getPropertiesHashMap(path);
-
-        port = properties.get("port").get(0);
+        port = Math.round(properties.get("port").get(0));
         ip = properties.get("ip").get(0).toString() + properties.get("ip").get(1).toString();
         float spe = properties.get("speed").get(0);
         this.speed = (long) spe;
@@ -82,99 +70,75 @@ public class Model extends Observable{
         properties.remove(("ip"), properties.get("ip"));
         properties.remove(("speed"), properties.get("speed"));
 
-        for(String i: properties.keySet()){
-            System.out.println(i);
-        }
-
     }
-
-    public interface EventListener {
-        void fireEvent (int e);
-    }
-
-    EventListener lst = new EventListener() {
-        @Override
-        public void fireEvent (int e) {
-            //do what you want with e
-        }
-    };
 
     public Model(IntegerProperty ts ){
-
         this.timeStep = ts;
         this.featuresName = new ArrayList<String>();
-
-        setProperties();
-
+        //setProperties();
+        this.port = 5400;
+        this.ip="127.0.0.1";
+        this.speed = 500;
     }
 
     public void playModel(){
 
-
-        System.out.println("play model");
         if(TSdetect != null) {
-
-
             if (timer == null) {
                 timer = new Timer();
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-                        System.out.println("sending row " + timeStep.get());
                         clock = getDurationString(timeStep.get());
-                        System.out.println(clock);
                         timeStep.set(timeStep.get() + 1);
                         notifyObservers(timeStep.get() + 1);
                     }
                 }, 0, speed);
 
+                if(timeStep.get() == 0){
 
-                if(!flag){
-                    flag = true;
-                    new Thread(() -> {
-                        Simulator sim = new Simulator();
+                    t = new Thread(()->{
+                        simulator = new Simulator(detectFile, ip, port, speed);
                         if (detectFile != null) {
-                            sim.setFile(detectFile);
-                            sim.run();
+                            simulator.run();
                         }
-
-                    }).start();
+                    });
+                    t.start();
                 }
-
             }
         }
+
         else{
-            System.out.println("please upload the TSdetect first");
+            if(TSlearn == null){
+                info("learn");
+            }
+            if(TSdetect == null){
+                info("detect");
+            }
         }
     }
 
     public void pauseModel(){
         if (timer != null) {
-            System.out.println("pause model");
             timer.cancel();
             timer = null;
+            t.interrupt();
         }
     }
     public void stopModel(){
         if(timer != null){
-            System.out.println("stop model");
+            clock = "00 : 00 : 00";
             timer.cancel();
             timer = null;
             timeStep.set(0);
+            t.interrupt();
         }
         else {
             timeStep.set(0);
-            System.out.println("stop model 2");
         }
     }
-    public void backModel(){
-        System.out.println("back model");
-    }
-    public void forwardModel(){
-        System.out.println("forward model");
-    }
+
     public void minusModel(){
-        System.out.println("minus model");
         if(timeStep.get() < 10){
             timeStep.set(0);
         }
@@ -183,7 +147,6 @@ public class Model extends Observable{
         }
     }
     public void plusModel(){
-        System.out.println("plus model");
         timeStep.set(timeStep.get() + 10);
     }
 
@@ -203,9 +166,7 @@ public class Model extends Observable{
             timer.cancel();
             timer = null;
             this.playModel();
-
         }
-        System.out.println("speed is:" + sp);
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////
@@ -217,18 +178,17 @@ public class Model extends Observable{
         flc.setInitialDirectory(new File("./resources"));
         File file1 = flc.showOpenDialog(null);
         if(file1 == null){
-            System.out.println("please upload CSV of learn");
+            info("xmlcheck");
         }
         String path = file1.getPath();
         setProppertiesWithPath(path);
-
     }
 
     public void gettingStarted(){
 
         Stage stage = new Stage();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("gettingstarted.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../xmlsaver/gettingstarted.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("Getting Started");
@@ -243,7 +203,7 @@ public class Model extends Observable{
 
         Stage stage = new Stage();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("About.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../xmlsaver/About.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("About");
@@ -258,7 +218,7 @@ public class Model extends Observable{
 
         Stage stage = new Stage();
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("checkforupdates.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../xmlsaver/checkforupdates.fxml"));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.setTitle("check for updates");
@@ -269,41 +229,13 @@ public class Model extends Observable{
         }
     }
 
-    public void openFiles(){
-
-
-        try {
-            Stage stage = new Stage();
-
-            Parent root = FXMLLoader.load(getClass().getResource("dialogFiles.fxml"));
-            Scene scene = new Scene(root);
-            stage.setTitle("Upload File");
-            stage.setScene(scene);
-            stage.show();
-
-            dialog dl = new dialog();
-
-            fileLearn = dl.controller.file1;
-            fileDetect = dl.controller.file2;
-
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        System.out.println("Please enter the file of learn");
-
-
-    }
     public void getCSV(){
-        System.out.println("start learning");
         FileChooser fc=new FileChooser();
         fc.setTitle("open CSV file");
         fc.setInitialDirectory(new File("./resources"));
         file = fc.showOpenDialog(null);
         if(file == null){
-            System.out.println("please upload CSV of learn");
+           // System.out.println("please upload CSV file");
         }
     }
 
@@ -314,12 +246,12 @@ public class Model extends Observable{
             if (file != null) {
                 detectFile = file;
                 TimeSeries tsd = new TimeSeries(file);
+
                 TSdetect = tsd;
                 algoDetectMap = new HashMap<String, List<AnomalyReport>>();
                 List<AnomalyReport> listAnomaly = new ArrayList<AnomalyReport>();
                 listAnomaly = this.simpleAnomaly.detect(TSdetect);
                 LinearRegHelper helper = new LinearRegHelper();
-
 
                 algoDetectMap.put("Linear Regression", listAnomaly);
                 listAnomaly.clear();
@@ -328,11 +260,10 @@ public class Model extends Observable{
                 listAnomaly.clear();
                 listAnomaly = this.hybrid.detect(TSdetect);
                 algoDetectMap.put("Hybrid", listAnomaly);
-                System.out.println("tsd ok");
             }
         }
         else{
-            System.out.println("please upload the CSV of learn first");
+            info("detect");
         }
     }
 
@@ -348,44 +279,39 @@ public class Model extends Observable{
             this.hybrid = new HybridAlgorithm();
             this.hybrid.learnNormal(TSlearn);
             this.featuresName = TSlearn.getFeatures();
-            System.out.println("tsl ok");
-
-
+        }
+        else{
+            info("learn");
         }
     }
-
 
     public void simpleAlgoModel(){
 
         if(this.checkForUseAlgo()){
-            System.out.println("linear algo");
         }
     }
     public void zscoreAlgoModel(){
         if(this.checkForUseAlgo()) {
-            System.out.println("zscore algo");
         }
 
     }
     public void hybridAlgoModel(){
 
         if(this.checkForUseAlgo()){
-            System.out.println("hybrid algo");
         }
     }
 
     public boolean checkForUseAlgo(){
         if(this.TSlearn == null){
-            System.out.println("Please start learning first");
+            info("learn");
             return false;
         }
         if(this.TSdetect == null){
-            System.out.println("Please start detecting first");
+            info("detect");
             return false;
         }
         return true;
     }
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -396,7 +322,6 @@ public class Model extends Observable{
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         seconds = seconds % 60;
-
         return twoDigitString(hours) + " : " + twoDigitString(minutes) + " : " + twoDigitString(seconds);
     }
 
@@ -418,7 +343,6 @@ public class Model extends Observable{
 
     public boolean containsTimeStepInAnomalyList(long t){
 
-
         for(int i=0; i<algoDetectMap.get("Linear Regression").size(); i++){
 
             if(algoDetectMap.get("Linear Regression").get(i).timeStep == t){
@@ -426,9 +350,22 @@ public class Model extends Observable{
             }
         }
         return false;
-
     }
 
 
+    public void info(String str){
+        Stage stage = new Stage();
+        try {
+            String path = "../xmlsaver/" + str + ".fxml";
+            Parent root1 = FXMLLoader.load(getClass().getResource(path));
+            Scene scene1 = new Scene(root1);
+            stage.setScene(scene1);
+            stage.setTitle("Information");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

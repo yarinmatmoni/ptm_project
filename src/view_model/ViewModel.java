@@ -23,9 +23,9 @@ public class ViewModel extends Observable implements Observer {
     Model model;
     public IntegerProperty timeStep;
     private HashMap<String, FloatProperty> displayVariables;
-    public final Runnable playVM, pauseVM, stopVM, backVM, forwardVM, minusVM, plusVM, startLearnVM, startDetectVM,speed2VM,speed1VM,speed3VM ;
+    public final Runnable playVM, pauseVM, stopVM, minusVM, plusVM, startLearnVM, startDetectVM,speed2VM,speed1VM,speed3VM ;
     public final Runnable SimpleVM, ZScoreVM, HybridVM;
-    public final Runnable openFilesVM, openXMLVM, gettingStartedVM, AboutVM, checkForUpdatesVM;
+    public final Runnable openXMLVM, gettingStartedVM, AboutVM, checkForUpdatesVM;
     public StringProperty clock;
     public StringProperty  altitude,heading,roll,airspeed,pitch,yaw;
     public DoubleProperty throttle, rudder, elevator, aileron;
@@ -47,13 +47,12 @@ public class ViewModel extends Observable implements Observer {
     public HashMap<Integer, String> algoIdMap;
     public IntegerProperty chooseAlgo;
     public BooleanProperty nameChangedVM;
+    public IntegerProperty endTimeVM;
 
     public ObservableList<Float> linearReg;
 
     public FloatProperty ValueVM;
     public FloatProperty ValueZSVM;
-
-    int placeforlinear = 1;
 
     public HashMap<Integer ,Float> listforlin; // timeStep and the value
 
@@ -64,18 +63,7 @@ public class ViewModel extends Observable implements Observer {
         this.model = new Model(timeStep);
         this.model.addObserver(this);
         this.model.addObserver(this);
-        displayVariables = new HashMap<String, FloatProperty>();
-        altitude = new SimpleStringProperty(); // 25 Z
-        airspeed = new SimpleStringProperty(); // 24 Z
-        roll = new SimpleStringProperty(); // 28
-        yaw = new SimpleStringProperty(); // 20
-        pitch = new SimpleStringProperty(); // 29
-        heading = new SimpleStringProperty(); // 36
-        slider = new Slider();
-        throttle = new SimpleDoubleProperty(); // עמודה G 6
-        rudder = new SimpleDoubleProperty(); // עמודה C 2
-        aileron = new SimpleDoubleProperty(); // עמודה A 0
-        elevator = new SimpleDoubleProperty();// עמודה B 1
+        initializeSettings();
         Name1VM = new SimpleStringProperty();
         Name1VM.set("-1");
         Name2VM = new SimpleStringProperty();
@@ -94,9 +82,10 @@ public class ViewModel extends Observable implements Observer {
         ValueVM = new SimpleFloatProperty();
         ValueZSVM = new SimpleFloatProperty();
 
-
-        for(String i: model.properties.keySet()){
-            displayVariables.put(i, new SimpleFloatProperty());
+        if(model.properties != null){
+            for(String i: model.properties.keySet()){
+                displayVariables.put(i, new SimpleFloatProperty());
+            }
         }
 
 
@@ -104,33 +93,24 @@ public class ViewModel extends Observable implements Observer {
         algoIdMap.put(2, "ZScore");
         algoIdMap.put(3, "Hybrid");
 
-
         anomalyReports = FXCollections.observableArrayList();
         observableList = FXCollections.observableArrayList();
         observableList.addListener(new InvalidationListener() {
             @Override
-            public void invalidated(javafx.beans.Observable observable) {
-                System.out.println("list changed1");
-            }
+            public void invalidated(javafx.beans.Observable observable) {}
         });
-
-
 
 
         timeStep.addListener((obs, old, nw)-> {
             if(timeStep.get() < model.TSdetect.getsizeArrayList()) { //// properties.get(ArrayList.size)
 
                 Platform.runLater(() -> {
-                    System.out.println(timeStep.get());
                     clock.set(model.clock);
                     slider.setValue(timeStep.get());
                     throttle.set(model.TSdetect.getHashMap().get("throttle").get(timeStep.get()));
                     rudder.set(model.TSdetect.getHashMap().get("rudder").get(timeStep.get()));
                     aileron.set(model.TSdetect.getHashMap().get("aileron").get(timeStep.get()));
                     elevator.set(model.TSdetect.getHashMap().get("elevator").get(timeStep.get()));
-
-
-                    //displayVariables.get("throttle").set(model.TSdetect.getHashMap().get("throttle").get(timeStep.get()));
 
                     if(NameAlgo.getValue().equals("Linear Regression")){
 
@@ -140,17 +120,8 @@ public class ViewModel extends Observable implements Observer {
                     }
 
                     if(NameAlgo.getValue().equals("ZScore")){
-                        ValueZSVM.set(model.zscore.zmap.get(timeStep.get()));
+                        ValueZSVM.set(model.zscore.zmap1.get(Name1VM.getValue()).get(timeStep.get()));
                     }
-
-
-//                    listforlin.put(timeStep.get(), (float)384);
-//
-//                    if(listforlin.containsKey(timeStep.get())){
-//
-//                        ValueVM.set(timeStep.get());
-//                    }
-
 
                     if (Name1VM.getValue() != null || Name1VM.getValue() != "-1") {
                         // f1Vaule.setValue(model.TSdetect.getHashMap().get(Name1VM.getValue()).get(timeStep.get()));
@@ -158,10 +129,6 @@ public class ViewModel extends Observable implements Observer {
                         if (model.TSdetect.getHashMap().get(name) != null) {
                             f1ArrayList. add(model.TSdetect.getHashMap().get(name).get(timeStep.get()));
                         }
-
-
-
-
 
                     }
 
@@ -171,12 +138,9 @@ public class ViewModel extends Observable implements Observer {
                 });
             }
             else{
-                System.out.println("End of flight");
                 model.stopModel();
             }
         });
-
-
 
 
         slider.valueProperty().addListener((obs, old, nw)->{
@@ -184,20 +148,6 @@ public class ViewModel extends Observable implements Observer {
                 timeStep.set((int) slider.getValue());
             });
         });
-
-
-        slider.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-
-            }
-        });
-
-        // here to every property we need to addListener to the timeStep with the relevant property
-//        for(String j:displayVariables.keySet()){
-//            timeStep.addListener((obs, ols, nw)-> {
-//                Platform.runLater(() -> displayVariables.get("j").set(model.TSdetect.getHashMap().get(j).get(timeStep.get())));
-//            });
-//        }
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -208,7 +158,6 @@ public class ViewModel extends Observable implements Observer {
         }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-        openFilesVM = ()-> model.openFiles();
         openXMLVM = ()-> model.openXMLFile();
         gettingStartedVM = ()->model.gettingStarted();
         AboutVM = ()->model.About();
@@ -219,21 +168,18 @@ public class ViewModel extends Observable implements Observer {
         playVM = ()-> model.playModel();
         pauseVM = ()->model.pauseModel();
         stopVM = ()->model.stopModel();
-        backVM = ()->model.backModel();
-        forwardVM = ()->model.forwardModel();
         minusVM = ()->model.minusModel();
         plusVM = ()->model.plusModel();
+
         startLearnVM = (()->{
             model.startLearnModel();
+            endTimeVM.set(model.TSlearn.getsizeArrayList());
             this.featuresList = new ArrayList<>();
-//            for(String j: displayVariables.keySet()){
-//                this.featuresList.add(j);
-//            }
-            this.featuresList = model.TSlearn.getFeatures();
-            observableList.setAll(featuresList);
-            timeForSlider = model.TSlearn.getsizeArrayList();
-
-            System.out.println("hello");
+            if(model.TSlearn != null){
+                this.featuresList = model.TSlearn.getFeatures();
+                observableList.setAll(featuresList);
+                timeForSlider = model.TSlearn.getsizeArrayList();
+            }
         });
         startDetectVM = (()->{
             model.startDetectModel();
@@ -246,11 +192,7 @@ public class ViewModel extends Observable implements Observer {
                     pitch.set(model.TSdetect.getHashMap().get("attitude-indicator_internal-pitch-deg").get(timeStep.get()).toString());
                     heading.set(model.TSdetect.getHashMap().get("indicated-heading-deg").get(timeStep.get()).toString());
 
-
-
-
                 });
-
             });
         });
 
@@ -261,9 +203,6 @@ public class ViewModel extends Observable implements Observer {
                     int index = model.simpleAnomaly.getIndex(Name1VM.getValue()) + 1;
                     XVM.set(model.simpleAnomaly.getList().get(index).lin_reg.f(0));
                     YVM.set(model.simpleAnomaly.getList().get(index).lin_reg.f(2174));
-                    System.out.println("a is: " + model.simpleAnomaly.getList().get(index).lin_reg.a);
-                    System.out.println("b is: " + model.simpleAnomaly.getList().get(index).lin_reg.b);
-
 
                     listforlin = new HashMap<Integer, Float>();
                     List<AnomalyReport> listanomaly = model.algoDetectMap.get("Linear Regression");
@@ -273,95 +212,54 @@ public class ViewModel extends Observable implements Observer {
                         int timestep2 = ((int) timeStepoflist);
                         model.TSdetect.getHashMap().get(Name1VM.getValue()).get(i);
                         listforlin.put(timestep2, model.TSdetect.getHashMap().get(Name1VM.getValue()).get(timestep2));
-
                     }
-//                    timeStep.addListener((obse, olde, nwe)->{
-//
-//                        Platform.runLater(()->{
-//
-//                            for(int i=0; i<model.linearhelperlist.size(); i++){
-//
-//                                LinearRegHelper helper = new LinearRegHelper();
-//                                int place = helper.checkIfExist(model.linearhelperlist, Name1VM.getValue());
-//                                if (place != -1){
-//                                    if(timeStep.get() == model.linearhelperlist.get(place).timeStep){
-//                                        linearReg.add(model.linearhelperlist.get(place).value);
-//                                    }
-//
-//                                }
-//
-//                            }
-//
-//                        });
-//
-//                    });
-
                 }
                 if(NameAlgo.getValue().equals("ZScore")){
-
-
-
-
+                    ValueZSVM.set(model.zscore.zmap1.get(Name1VM.getValue()).get(timeStep.get()));
                 }
-
-
-
-
             });
-
         });
-
 
         speed1VM = ()->model.changeSpeed(1);
         speed2VM = ()->model.changeSpeed(2);
         speed3VM = ()->model.changeSpeed(3);
 
-
         SimpleVM = ()->{
-            //chooseAlgo.set(1);
             model.simpleAlgoModel();
             NameAlgo.set("Linear Regression");
-            if((!(Name1VM.getValue().isEmpty())) || (!(Name1VM.getValue().equals("-1")))){
-//                int index = model.simpleAnomaly.getIndex(Name1VM.getValue()) + 1;
-////                System.out.println("a is: " + model.simpleAnomaly.getList().get(index).lin_reg.a);
-////                System.out.println("b is: " + model.simpleAnomaly.getList().get(index).lin_reg.b);
-//                XVM.set(model.simpleAnomaly.getList().get(index).lin_reg.f(0));
-//                YVM.set(model.simpleAnomaly.getList().get(index).lin_reg.f(2174));
-            }
-
-
         };
         ZScoreVM = ()->{
-            //chooseAlgo.set(2);
             model.zscoreAlgoModel();
             NameAlgo.set("ZScore");
         };
         HybridVM = ()->{
-            // chooseAlgo.set(3);
             model.hybridAlgoModel();
             NameAlgo.set("Hybrid");
         };
 
-
         moveSliderVM = (()->{ slider.getValue(); });
     }
-
-
 
     public String getCFeature(){
         return model.simpleAnomaly.getCorrelatedFeature(Name1VM.getValue());
     }
 
-//    public HashMap<String, DoubleProperty> getDisplayVariables() {
-//        return displayVariables;
-//    }
-//
-//    public DoubleProperty getProperty(String name){
-//        return displayVariables.get(name);
-//    }
+    public void initializeSettings(){
 
-
-
+        displayVariables = new HashMap<String, FloatProperty>();
+        altitude = new SimpleStringProperty();
+        airspeed = new SimpleStringProperty();
+        roll = new SimpleStringProperty();
+        yaw = new SimpleStringProperty();
+        pitch = new SimpleStringProperty();
+        heading = new SimpleStringProperty();
+        slider = new Slider();
+        throttle = new SimpleDoubleProperty();
+        rudder = new SimpleDoubleProperty();
+        aileron = new SimpleDoubleProperty();
+        elevator = new SimpleDoubleProperty();
+        endTimeVM = new SimpleIntegerProperty();
+    }
     @Override
     public void update(Observable o, Object arg) {
 

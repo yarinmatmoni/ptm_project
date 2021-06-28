@@ -25,7 +25,6 @@ public class ControlPanel extends AnchorPane {
 
         if (anc != null) {
             controller = fxl.getController();
-            controller.print();
             this.getChildren().add(anc); // add the control-panel to the view
         } else {
             controller = null;
